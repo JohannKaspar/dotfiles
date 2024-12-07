@@ -1,9 +1,6 @@
 # Shortcuts
 alias copyssh="pbcopy < $HOME/.ssh/id_ed25519.pub"
-alias reloadshell="omz reload"
 alias reloaddns="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
-alias ll="/opt/homebrew/opt/coreutils/libexec/gnubin/ls -AhlFo --color --group-directories-first"
-alias phpstorm='open -a /Applications/PhpStorm.app "`pwd`"'
 alias shrug="echo '¯\_(ツ)_/¯' | pbcopy"
 alias compile="commit 'compile'"
 alias version="commit 'version'"
@@ -11,20 +8,7 @@ alias version="commit 'version'"
 # Directories
 alias dotfiles="cd $DOTFILES"
 alias library="cd $HOME/Library"
-alias projects="cd $HOME/Code"
-alias sites="cd $HOME/Herd"
-
-# Laravel
-alias a="herd php artisan"
-alias fresh="herd php artisan migrate:fresh --seed"
-alias tinker="herd php artisan tinker"
-alias seed="herd php artisan db:seed"
-alias serve="herd php artisan serve"
-
-# PHP
-alias cfresh="rm -rf vendor/ composer.lock && composer i"
-alias composer="herd composer"
-alias php="herd php"
+alias projects="cd $HOME/Projects"
 
 # JS
 alias nfresh="rm -rf node_modules/ package-lock.json && npm install"
@@ -32,9 +16,6 @@ alias watch="npm run dev"
 
 # Docker
 alias docker-composer="docker-compose"
-
-# SQL Server
-alias mssql="docker run -e ACCEPT_EULA=Y -e SA_PASSWORD=LaravelWow1986! -p 1433:1433 mcr.microsoft.com/mssql/server:2017-latest"
 
 # Git
 alias gs="git status"
@@ -54,3 +35,61 @@ alias resolve="git add . && git commit --no-edit"
 alias stash="git stash -u"
 alias unstage="git restore --staged ."
 alias wip="commit wip"
+
+
+workon() {
+    local project_name="$1"
+    local projects_file="$HOME/.projects"
+    local project_dir
+
+    # Check for projects config file
+    if [[ ! -f "$projects_file" ]]; then
+        echo "Error: $projects_file not found" >&2
+        return 1
+    fi
+
+    # Get the project directory for the given project name
+    project_dir=$(grep -E "^$project_name\s*=" "$projects_file" | sed 's/^[^=]*=\s*//' | sed 's/^[[:space:]]*//' | tr -d '\n')  # TODO make this cleaner
+
+    # Ensure a project directory was found
+    if [[ -z "$project_dir" ]]; then
+        echo "Error: Project '$project_name' not found in $projects_file" >&2
+        return 1
+    fi
+
+    # Ensure the project directory exists
+    if [[ ! -d "$project_dir" ]]; then
+        echo "Error: Directory $project_dir does not exist" >&2
+        return 1
+    fi
+
+    # Change directories
+    cd "$project_dir"
+    source .venv/bin/activate  # TODO account for other venv locations
+}
+
+# uv
+venv() {
+    local venv_name
+    local dir_name=$(basename "$PWD")
+
+    # If there are no arguments or the last argument starts with a dash, use dir_name
+    if [ $# -eq 0 ] || [[ "${!#}" == -* ]]; then
+        venv_name="$dir_name"
+    else
+        venv_name="${!#}"
+        set -- "${@:1:$#-1}"
+    fi
+
+    # Create venv using uv with all passed arguments
+    if ! uv venv --seed --prompt "$@" "$venv_name"; then
+        echo "Error: Failed to create venv" >&2
+        return 1
+    fi
+
+    # ADDED THIS
+    source .venv/bin/activate  # TODO account for other venv locations
+
+    # Append to ~/.projects
+    echo "${venv_name} = ${PWD}" >> ~/.projects
+}

@@ -144,7 +144,7 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
 # `Inches`, `en_GB` with `en_US`, and `true` with `false`.
 defaults write NSGlobalDomain AppleLanguages -array "en" "de"
-defaults write NSGlobalDomain AppleLocale -string "en_DE@currency=EUR"
+defaults write NSGlobalDomain AppleLocale -string "de_DE@currency=EUR"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
@@ -247,7 +247,8 @@ defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 #defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # Finder: show all filename extensions
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write NSGlobalDomain AppleShowAllExtensions -bool false
 
 # Finder: show status bar
 # defaults write com.apple.finder ShowStatusBar -bool true
