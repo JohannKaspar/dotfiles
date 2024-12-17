@@ -38,58 +38,16 @@ alias wip="commit wip"
 
 
 workon() {
-    local project_name="$1"
-    local projects_file="$HOME/.projects"
-    local project_dir
-
-    # Check for projects config file
-    if [[ ! -f "$projects_file" ]]; then
-        echo "Error: $projects_file not found" >&2
-        return 1
-    fi
-
-    # Get the project directory for the given project name
-    project_dir=$(grep -E "^$project_name\s*=" "$projects_file" | sed 's/^[^=]*=\s*//' | sed 's/^[[:space:]]*//' | tr -d '\n')  # TODO make this cleaner
-
-    # Ensure a project directory was found
-    if [[ -z "$project_dir" ]]; then
-        echo "Error: Project '$project_name' not found in $projects_file" >&2
-        return 1
-    fi
+    local project_dir="$HOME/Projects/$1"
 
     # Ensure the project directory exists
     if [[ ! -d "$project_dir" ]]; then
         echo "Error: Directory $project_dir does not exist" >&2
+        echo "List of projects:"
+        ls -1 "$HOME/Projects"
         return 1
     fi
 
-    # Change directories
     cd "$project_dir"
-    source .venv/bin/activate  # TODO account for other venv locations
-}
-
-# uv
-venv() {
-    local venv_name
-    local dir_name=$(basename "$PWD")
-
-    # If there are no arguments or the last argument starts with a dash, use dir_name
-    if [ $# -eq 0 ] || [[ "${!#}" == -* ]]; then
-        venv_name="$dir_name"
-    else
-        venv_name="${!#}"
-        set -- "${@:1:$#-1}"
-    fi
-
-    # Create venv using uv with all passed arguments
-    if ! uv venv --seed --prompt "$@" "$venv_name"; then
-        echo "Error: Failed to create venv" >&2
-        return 1
-    fi
-
-    # ADDED THIS
-    source .venv/bin/activate  # TODO account for other venv locations
-
-    # Append to ~/.projects
-    echo "${venv_name} = ${PWD}" >> ~/.projects
+    source .venv/bin/activate
 }
