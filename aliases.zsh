@@ -21,7 +21,7 @@ alias docker-composer="docker-compose"
 alias gs="git status"
 alias gb="git branch"
 alias gc="git checkout"
-alias gl="git log --oneline --decorate --color"
+alias gl="git log --graph --oneline --decorate --color --all"
 alias amend="git add . && git commit --amend --no-edit"
 alias commit="git add . && git commit -m"
 alias diff="git diff"
@@ -36,6 +36,10 @@ alias stash="git stash -u"
 alias unstage="git restore --staged ."
 alias wip="commit wip"
 
+# remote development
+alias tunnel_jupyter="~/.dotfiles/scripts/tunnel_jupyter.sh"
+alias tunnel_tensorboard="~/.dotfiles/scripts/tunnel_tensorboard.sh"
+alias download="/Users/johannkaspar/.dotfiles/scripts/download_outputs.sh"
 
 workon() {
     local project_dir="$HOME/Projects/$1"
@@ -50,4 +54,14 @@ workon() {
 
     cd "$project_dir"
     source .venv/bin/activate
+}
+
+act() {
+    # check if .venv exists in the current directory and activate it
+    if [[ -d ".venv" ]]; then
+        source .venv/bin/activate
+    else
+        echo "Error: No .venv directory found in the current directory" >&2
+        return 1
+    fi
 }
