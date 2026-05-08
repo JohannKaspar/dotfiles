@@ -12,7 +12,6 @@ alias projects="cd $HOME/Projects"
 
 # JS
 alias nfresh="rm -rf node_modules/ package-lock.json && npm install"
-alias watch="npm run dev"
 
 # Docker
 alias docker-composer="docker-compose"
@@ -41,6 +40,9 @@ alias tunnel_jupyter="~/.dotfiles/scripts/tunnel_jupyter.sh"
 alias tunnel_tensorboard="~/.dotfiles/scripts/tunnel_tensorboard.sh"
 alias download="/Users/johannkaspar/.dotfiles/scripts/download_outputs.sh"
 
+# kubernetes
+alias k="kubectl"
+
 workon() {
     local project_dir="$HOME/Projects/$1"
 
@@ -56,7 +58,7 @@ workon() {
     source .venv/bin/activate
 }
 
-act() {
+activate() {
     # check if .venv exists in the current directory and activate it
     if [[ -d ".venv" ]]; then
         source .venv/bin/activate

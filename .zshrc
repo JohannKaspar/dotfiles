@@ -1,8 +1,10 @@
 # Path to your dotfiles.
 export DOTFILES=$HOME/.dotfiles
+source ~/.api_keys
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=/Library/TeX/texbin/tex:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -124,3 +126,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export KUBERNETES_NAMESPACE="default"
