@@ -2,8 +2,7 @@
 
 echo "Cloning repositories..."
 
-CODE=$HOME/Code
-SITES=$HOME/Herd
+PROJECTS=$HOME/Projects
 
-# Example
-# git clone git@github.com:blade-ui-kit/blade-ui-kit.com.git $SITES/blade-ui-kit.com
+# Add your repos here, e.g.:
+# git clone git@github.com:JohannKaspar/<repo>.git $PROJECTS/<repo>

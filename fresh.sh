@@ -26,16 +26,20 @@ brew update
 brew tap homebrew/bundle
 brew bundle --file ./Brewfile
 
-# Set default MySQL root password and auth type
-mysql -u root -e "ALTER USER root@localhost IDENTIFIED WITH mysql_native_password BY 'password'; FLUSH PRIVILEGES;"
+# Create projects directory
+mkdir -p $HOME/Projects
 
-# Create a projects directories
-mkdir $HOME/Code
-mkdir $HOME/Herd
+# Configure git identity and global gitignore
+source ./gitconfig.sh
 
-# Create Code subdirectories
-mkdir $HOME/Code/blade-ui-kit
-mkdir $HOME/Code/laravel
+# Symlink Hammerspoon and Karabiner configs from the repo
+mkdir -p $HOME/.hammerspoon
+[ -e $HOME/.hammerspoon/init.lua ] && [ ! -L $HOME/.hammerspoon/init.lua ] && mv $HOME/.hammerspoon/init.lua $HOME/.hammerspoon/init.lua.backup
+ln -sf $HOME/.dotfiles/configs/hammerspoon/init.lua $HOME/.hammerspoon/init.lua
+
+mkdir -p $HOME/.config/karabiner
+[ -e $HOME/.config/karabiner/karabiner.json ] && [ ! -L $HOME/.config/karabiner/karabiner.json ] && mv $HOME/.config/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json.backup
+ln -sf $HOME/.dotfiles/configs/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
 
 # Clone Github repositories
 ./clone.sh

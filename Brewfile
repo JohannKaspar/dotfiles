@@ -18,8 +18,6 @@ brew "coreutils"
 brew "cowsay"
 # Load/unload environment variables based on $PWD
 brew "direnv"
-# Pack, ship and run any application as a lightweight container
-brew "docker", link: false
 # Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
 # GitHub command-line tool
@@ -30,14 +28,10 @@ brew "git"
 brew "git-filter-repo"
 # GNU grep, egrep and fgrep
 brew "grep"
-# Kubernetes package manager
-brew "helm", link: false
-# Kubernetes package manager
-brew "helm@3", link: true
 # Client library for huggingface.co hub
 brew "hf"
 # User-friendly cURL replacement (command-line HTTP client)
-brew "httpie", link: false
+brew "httpie"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Sophisticated file transfer program
@@ -58,8 +52,6 @@ brew "node"
 brew "ollama", restart_service: :changed
 # Swiss-army knife of markup format conversion
 brew "pandoc"
-# Package compiler and linker metadata toolkit
-brew "pkgconf"
 # Your Gateway to Embedded Software Development Excellence
 brew "platformio"
 # Fast, disk space efficient package manager
@@ -69,7 +61,7 @@ brew "poppler"
 # Cross-platform library for audio I/O
 brew "portaudio"
 # Object-relational database system
-brew "postgresql@14"
+brew "postgresql@18"
 # Rsync for cloud storage
 brew "rclone"
 # Persistent key-value database, with built-in net interface
@@ -173,8 +165,6 @@ cask "postman"
 cask "proxy-audio-device"
 # Toolbox companion for QMK Firmware
 cask "qmk-toolbox"
-# Quick Look plugin for JSON files
-cask "quicklook-json"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Free Dj app to prepare and manage your music files
@@ -187,8 +177,6 @@ cask "slack"
 cask "soulseek"
 # Music streaming service
 cask "spotify"
-# Native GUI tool for relational databases
-cask "tableplus"
 # Remote access and connectivity software focused on security
 cask "teamviewer"
 # Messaging app with a focus on speed and security
