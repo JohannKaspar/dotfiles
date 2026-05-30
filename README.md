@@ -11,26 +11,31 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
 - Push every branch you care about.
 - Save anything that isn't in iCloud / Dropbox / OneDrive.
 - Export local databases.
-- Verify your Obsidian vault, 1Password vault, and cloud accounts are synced.
-- Move secrets into 1Password — they are deliberately **not** in this repo:
+- Verify your Obsidian vault and cloud accounts are synced.
+- Transfer the two files that are sensitive *and* not easily regeneratable. AirDrop them to the new Mac:
   - `~/.api_keys`
-  - `~/.ssh/config` and `~/.ssh/id_*` (or use the 1Password SSH agent)
-  - `~/.kaggle/kaggle.json`
-  - `~/.config/rclone/rclone.conf` (contains OAuth tokens)
-  - `~/.docker/config.json` (may contain registry credentials)
-  - Tunnelblick `.tblk` profiles (`~/Library/Application Support/Tunnelblick/Configurations/`)
-- For apps with native cloud sync, just sign in on the new Mac — no manual export needed: VS Code (Settings Sync), Cursor, Claude, ChatGPT, Slack, Discord, Telegram, Signal, Spotify, NordVPN, Obsidian, 1Password.
+  - `~/.ssh/id_ed25519` (and the matching `.pub`)
+- Regenerate the rest on the new Mac in a few minutes — no backup needed:
+  - `~/.ssh/config` — recreate by hand (it's just a host list)
+  - `~/.config/rclone/rclone.conf` — `rclone config` (re-auth each remote)
+  - `~/.docker/config.json` — `docker login` against the registries you use
+  - `~/.kaggle/kaggle.json` — re-download from kaggle.com → Account → Create New Token
+  - Tunnelblick `.tblk` profiles — re-import via Tunnelblick.app
+- For apps with native cloud sync, just sign in on the new Mac — no manual export needed: VS Code (Settings Sync), Cursor, Claude, ChatGPT, Slack, Discord, Telegram, Signal, Spotify, NordVPN, Obsidian.
 - Hammerspoon and Karabiner configs are versioned in this repo under [`configs/`](./configs) — keep them current.
 
 ### Setting up the new Mac
 
 1. Update macOS to the latest version.
-2. Set up an SSH key:
-   - With 1Password: enable the [1Password SSH agent](https://developer.1password.com/docs/ssh/get-started/#step-3-turn-on-the-1password-ssh-agent) and sync keys.
-   - Or generate fresh:
-     ```zsh
-     curl https://raw.githubusercontent.com/JohannKaspar/dotfiles/HEAD/ssh.sh | sh -s "<your-email>"
-     ```
+2. Drop the AirDropped SSH key into `~/.ssh/` and register it with the Keychain:
+    ```zsh
+    chmod 600 ~/.ssh/id_ed25519
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+    ```
+   Or generate a fresh one and add the public key to GitHub:
+    ```zsh
+    curl https://raw.githubusercontent.com/JohannKaspar/dotfiles/HEAD/ssh.sh | sh -s "<your-email>"
+    ```
 3. Clone this repo:
     ```zsh
     git clone --recursive git@github.com:JohannKaspar/dotfiles.git ~/.dotfiles
@@ -40,8 +45,8 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
     cd ~/.dotfiles && ./fresh.sh
     ```
    This installs Oh My Zsh, Homebrew, everything in [`Brewfile`](./Brewfile), symlinks `.zshrc`, configures git, creates `~/Projects/`, symlinks the Hammerspoon + Karabiner configs from [`configs/`](./configs), and applies macOS defaults from [`.macos`](./.macos).
-5. Restore `~/.api_keys` and the other secrets listed above from 1Password.
-6. Start apps that need post-install login (1Password first, then VS Code/Cursor/Claude/ChatGPT/Slack/Discord/Spotify/NordVPN/Ledger Wallet/Zotero/Obsidian). Settings sync down automatically where supported.
+5. Drop the AirDropped `~/.api_keys` into `$HOME`. Then regenerate the rest interactively as needed: `rclone config`, `docker login`, download a new `kaggle.json`, import Tunnelblick `.tblk` files.
+6. Start apps that need post-install login (Claude, ChatGPT, Cursor, VS Code, Slack, Discord, Spotify, NordVPN, Ledger Wallet, Zotero, Obsidian). Settings sync down automatically where supported.
 7. Reboot.
 
 ## What's in here
@@ -58,6 +63,8 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
 - [`configs/hammerspoon/init.lua`](./configs/hammerspoon/init.lua) — Hammerspoon config, symlinked to `~/.hammerspoon/init.lua`.
 - [`configs/karabiner/karabiner.json`](./configs/karabiner/karabiner.json) — Karabiner-Elements config, symlinked to `~/.config/karabiner/karabiner.json`.
 - [`scripts/`](./scripts) — SSH tunnels for remote Jupyter/TensorBoard and an rsync download helper.
+
+This repo previously used [Mackup](https://github.com/lra/mackup) to sync app preferences via iCloud. Mackup has been effectively unmaintained since 2023 and was retired from this setup. App preferences are now handled via each app's native sync (VS Code Settings Sync, Cursor, Karabiner-Elements GitHub sync, etc.) or just regenerated on a new Mac.
 
 ## Maintenance
 

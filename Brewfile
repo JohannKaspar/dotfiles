@@ -40,8 +40,6 @@ brew "lftp"
 brew "liblo"
 # LLVM's OpenMP runtime library
 brew "libomp"
-# Keep your Mac's application settings in sync
-brew "mackup"
 # Mac App Store command-line interface
 brew "mas"
 # Run a Kubernetes cluster locally

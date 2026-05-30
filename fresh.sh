@@ -44,8 +44,5 @@ ln -sf $HOME/.dotfiles/configs/karabiner/karabiner.json $HOME/.config/karabiner/
 # Clone Github repositories
 ./clone.sh
 
-# Symlink the Mackup config file to the home directory
-ln -s ./.mackup.cfg $HOME/.mackup.cfg
-
 # Set macOS preferences - we will run this last because this will reload the shell
 source ./.macos
