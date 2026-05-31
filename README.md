@@ -12,15 +12,19 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
 - Save anything that isn't in iCloud / Dropbox / OneDrive.
 - Export local databases.
 - Verify your Obsidian vault and cloud accounts are synced.
-- Transfer the two files that are sensitive *and* not easily regeneratable. AirDrop them to the new Mac:
+- Transfer the files that are sensitive *and* not easily regeneratable. AirDrop them to the new Mac:
   - `~/.api_keys`
   - `~/.ssh/id_ed25519` (and the matching `.pub`)
+  - `~/.claude/settings.json` — Claude Code user settings (sandbox config, theme, enabled plugins)
+  - `~/.claude/projects/` (just the `memory/` subdir inside each project) — accumulated context Claude has about your preferences and projects
+  - `~/Library/Application Support/Claude/claude_desktop_config.json` — Claude Desktop's MCP server config (Zotero, etc.)
 - Regenerate the rest on the new Mac in a few minutes — no backup needed:
   - `~/.ssh/config` — recreate by hand (it's just a host list)
   - `~/.config/rclone/rclone.conf` — `rclone config` (re-auth each remote)
   - `~/.docker/config.json` — `docker login` against the registries you use
   - `~/.kaggle/kaggle.json` — re-download from kaggle.com → Account → Create New Token
   - Tunnelblick `.tblk` profiles — re-import via Tunnelblick.app
+  - Claude Code plugins — `/plugin install github@claude-plugins-official` (or auto-installs on first launch)
 - For apps with native cloud sync, just sign in on the new Mac — no manual export needed: VS Code (Settings Sync), Cursor, Claude, ChatGPT, Slack, Discord, Telegram, Signal, Spotify, NordVPN, Obsidian.
 - Hammerspoon and Karabiner configs are versioned in this repo under [`configs/`](./configs) — keep them current.
 
@@ -45,7 +49,13 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
     cd ~/.dotfiles && ./fresh.sh
     ```
    This installs Oh My Zsh, Homebrew, everything in [`Brewfile`](./Brewfile), symlinks `.zshrc`, configures git, creates `~/Projects/`, symlinks the Hammerspoon + Karabiner configs from [`configs/`](./configs), and applies macOS defaults from [`.macos`](./.macos).
-5. Drop the AirDropped `~/.api_keys` into `$HOME`. Then regenerate the rest interactively as needed: `rclone config`, `docker login`, download a new `kaggle.json`, import Tunnelblick `.tblk` files.
+5. Drop the AirDropped files into place:
+   - `~/.api_keys` → `$HOME`
+   - `~/.claude/settings.json` → `~/.claude/` (create dir if missing)
+   - The `memory/` subdirs → matching `~/.claude/projects/<project-slug>/memory/`
+   - `claude_desktop_config.json` → `~/Library/Application Support/Claude/`
+
+   Then regenerate the rest interactively as needed: `rclone config`, `docker login`, download a new `kaggle.json`, import Tunnelblick `.tblk` files.
 6. Start apps that need post-install login (Claude, ChatGPT, Cursor, VS Code, Slack, Discord, Spotify, NordVPN, Ledger Wallet, Zotero, Obsidian). Settings sync down automatically where supported.
 7. Reboot.
 
