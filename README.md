@@ -12,12 +12,14 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
 - Save anything that isn't in iCloud / Dropbox / OneDrive.
 - Export local databases.
 - Verify your Obsidian vault and cloud accounts are synced.
-- Transfer the files that are sensitive *and* not easily regeneratable. AirDrop them to the new Mac:
+- Transfer the files that are sensitive *and* not easily regeneratable. The Charité MDM profile blocks AirDrop, so use an iCloud Drive bundle (or a USB stick as fallback). Copy these into `~/Library/Mobile Documents/com~apple~CloudDocs/migration-bundle/`:
   - `~/.api_keys`
   - `~/.ssh/id_ed25519` (and the matching `.pub`)
   - `~/.claude/settings.json` — Claude Code user settings (sandbox config, theme, enabled plugins)
-  - `~/.claude/projects/` (just the `memory/` subdir inside each project) — accumulated context Claude has about your preferences and projects
+  - The `memory/` subdir from each `~/.claude/projects/<slug>/` — accumulated context Claude has about your preferences and projects
   - `~/Library/Application Support/Claude/claude_desktop_config.json` — Claude Desktop's MCP server config (Zotero, etc.)
+
+  Verify the bundle has finished uploading on the old Mac (no cloud-arrow icons in Finder), then delete the directory after the new Mac is set up.
 - Regenerate the rest on the new Mac in a few minutes — no backup needed:
   - `~/.ssh/config` — recreate by hand (it's just a host list)
   - `~/.config/rclone/rclone.conf` — `rclone config` (re-auth each remote)
@@ -31,7 +33,7 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
 ### Setting up the new Mac
 
 1. Update macOS to the latest version.
-2. Drop the AirDropped SSH key into `~/.ssh/` and register it with the Keychain:
+2. Pull the SSH key from the iCloud-Drive `migration-bundle/` into `~/.ssh/` and register it with the Keychain:
     ```zsh
     chmod 600 ~/.ssh/id_ed25519
     ssh-add --apple-use-keychain ~/.ssh/id_ed25519
@@ -49,9 +51,9 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
     cd ~/.dotfiles && ./fresh.sh
     ```
    This installs Oh My Zsh, Homebrew, everything in [`Brewfile`](./Brewfile), symlinks `.zshrc`, configures git, creates `~/Projects/`, symlinks the Hammerspoon + Karabiner configs from [`configs/`](./configs), and applies macOS defaults from [`.macos`](./.macos).
-5. Drop the AirDropped files into place:
-   - `~/.api_keys` → `$HOME`
-   - `~/.claude/settings.json` → `~/.claude/` (create dir if missing)
+5. Move the rest of the files from the iCloud-Drive `migration-bundle/` into place:
+   - `.api_keys` → `$HOME/.api_keys`
+   - `settings.json` → `~/.claude/settings.json` (create the dir if missing)
    - The `memory/` subdirs → matching `~/.claude/projects/<project-slug>/memory/`
    - `claude_desktop_config.json` → `~/Library/Application Support/Claude/`
 
