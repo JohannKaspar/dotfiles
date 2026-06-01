@@ -6,14 +6,8 @@ brew "act"
 brew "actionlint"
 # Automatically restart SSH sessions and tunnels
 brew "autossh"
-# Microsoft Azure CLI 2.0
-brew "azure-cli"
-# Cloudflare Tunnel client (formerly Argo Tunnel)
-brew "cloudflared"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
-# Apjanke's fork of the classic cowsay project
-brew "cowsay"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Play, record, convert, and stream select audio and video codecs
@@ -48,8 +42,6 @@ brew "node"
 brew "ollama", restart_service: :changed
 # Swiss-army knife of markup format conversion
 brew "pandoc"
-# Your Gateway to Embedded Software Development Excellence
-brew "platformio"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # PDF rendering library (based on the xpdf-3.0 code base)
@@ -84,49 +76,28 @@ brew "wget"
 brew "yq"
 # View, print, and comment on PDF documents
 cask "adobe-acrobat-reader"
-# Menu bar tool to limit maximum charging percentage
-cask "aldente"
-# Tools for building Android applications
-cask "android-studio"
 # Memory training application
 cask "anki"
 # Application uninstaller
 cask "appcleaner"
 # Control the platform power state of your Apple Silicon device
 cask "mhaeuser/mhaeuser/battery-toolkit"
-# E-books management software
-cask "calibre"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Terminal-based AI coding assistant
 cask "claude-code"
-# Productivity platform for tasks, docs, goals, and chat
-cask "clickup"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
 # OpenAI's Codex desktop app for managing coding agents
 cask "codex-app"
 # Write, edit, and chat about your code with AI
 cask "cursor"
-# Voice and text chat software
-cask "discord"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
-# Collaborative team software
-cask "figma"
 # Web browser
 cask "firefox"
-# UI toolkit for building applications for mobile, web and desktop
-cask "flutter"
-cask "font-lato"
-cask "font-open-sans"
-cask "font-roboto"
-cask "font-source-code-pro"
-cask "font-source-code-pro-for-powerline"
-# Set of tools to manage resources and applications hosted on Google Cloud
-cask "gcloud-cli"
 # Web browser
 cask "google-chrome"
 # Desktop automation application
@@ -141,14 +112,10 @@ cask "jdownloader"
 cask "karabiner-elements"
 # Tool to prevent the system from going into sleep mode
 cask "keepingyouawake"
-# Wallet desktop application to maintain multiple cryptocurrencies
-cask "ledger-wallet"
 # Open-source firewall to block unknown outgoing connections
 cask "lulu"
 # Full TeX Live distribution with GUI applications
 cask "mactex"
-# Minimal installer for conda specific to conda-forge
-cask "miniforge"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok/ngrok/ngrok"
 # VPN client for secure internet access and private browsing
@@ -163,44 +130,25 @@ cask "proxy-audio-device"
 cask "qmk-toolbox"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
-# Free Dj app to prepare and manage your music files
-cask "rekordbox"
 # Instant messaging application focusing on security
 cask "signal"
 # Team communication and collaboration software
 cask "slack"
-# File sharing network
-cask "soulseek"
 # Music streaming service
 cask "spotify"
-# Remote access and connectivity software focused on security
-cask "teamviewer"
 # Messaging app with a focus on speed and security
 cask "telegram"
 # Unpacks archive files
 cask "the-unarchiver"
-# Open-source BitTorrent client
-cask "transmission"
-# Free and open-source OpenVPN client
-cask "tunnelblick"
-# Keyboard configurator
-cask "via"
 # Open-source code editor
 cask "visual-studio-code"
 # Multimedia player
 cask "vlc"
-# Simple menu bar app to download YouTube movies
-cask "youtube-downloader"
 # Video communication and virtual meeting platform
 cask "zoom"
 # Collect, organise, cite, and share research sources
 cask "zotero"
 mas "Flow", id: 1423210932
-mas "Ghostery Privacy Ad Blocker", id: 6504861501
-mas "iMovie", id: 408981434
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "PDFgear", id: 6469021132
 mas "Xcode", id: 497799835
 vscode "christian-kohler.path-intellisense"
 vscode "docker.docker"
