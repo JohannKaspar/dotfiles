@@ -33,7 +33,12 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
 ### Setting up the new Mac
 
 1. Update macOS to the latest version.
-2. Get an SSH key set up — do this BEFORE step 3 (cloning) because the clone uses SSH. Two options:
+2. Trigger the Xcode Command Line Tools install — `git`, `make`, `clang` etc. come from this. Two ways:
+    ```zsh
+    xcode-select --install
+    ```
+   Or just run any `git` command in Terminal — macOS will prompt to install. Wait until it finishes (~5–10 min) before the next step.
+3. Get an SSH key set up — do this BEFORE the clone because the clone uses SSH. Two options:
 
    **A. Reuse the existing key.** Pull `id_ed25519` and `id_ed25519.pub` from the iCloud-Drive `migration-bundle/` into `~/.ssh/`:
     ```zsh
@@ -50,24 +55,24 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
     curl https://raw.githubusercontent.com/JohannKaspar/dotfiles/HEAD/ssh.sh | sh -s "<your-email>"
     ```
    Then paste the new public key at <https://github.com/settings/keys>. After it's added, `ssh -T git@github.com` should succeed. Delete the old key from GitHub once the new Mac is verified working.
-3. Clone this repo:
+4. Clone this repo:
     ```zsh
     git clone --recursive git@github.com:JohannKaspar/dotfiles.git ~/.dotfiles
     ```
-4. Run the installer:
+5. Run the installer:
     ```zsh
     cd ~/.dotfiles && ./fresh.sh
     ```
-   This installs Oh My Zsh, Homebrew, everything in [`Brewfile`](./Brewfile), symlinks `.zshrc`, configures git, creates `~/Projects/`, symlinks the Hammerspoon + Karabiner configs from [`configs/`](./configs), and applies macOS defaults from [`.macos`](./.macos).
-5. Move the rest of the files from the iCloud-Drive `migration-bundle/` into place:
+   This installs Oh My Zsh, Homebrew, everything in [`Brewfile`](./Brewfile) (including a current `git` that supersedes the CLT one), symlinks `.zshrc`, configures git, creates `~/Projects/`, symlinks the Hammerspoon + Karabiner configs from [`configs/`](./configs), and applies macOS defaults from [`.macos`](./.macos).
+6. Move the rest of the files from the iCloud-Drive `migration-bundle/` into place:
    - `.api_keys` → `$HOME/.api_keys`
    - `settings.json` → `~/.claude/settings.json` (create the dir if missing)
    - The `memory/` subdirs → matching `~/.claude/projects/<project-slug>/memory/`
    - `claude_desktop_config.json` → `~/Library/Application Support/Claude/`
 
    Then regenerate the rest interactively as needed: `rclone config`, `docker login`, download a new `kaggle.json`, import Tunnelblick `.tblk` files.
-6. Start apps that need post-install login (Claude, ChatGPT, Cursor, VS Code, Slack, Discord, Spotify, NordVPN, Ledger Wallet, Zotero, Obsidian). Settings sync down automatically where supported.
-7. Reboot.
+7. Start apps that need post-install login (Claude, ChatGPT, Cursor, VS Code, Slack, Discord, Spotify, NordVPN, Ledger Wallet, Zotero, Obsidian). Settings sync down automatically where supported.
+8. Reboot.
 
 ## What's in here
 
