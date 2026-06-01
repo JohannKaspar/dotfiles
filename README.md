@@ -33,15 +33,23 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
 ### Setting up the new Mac
 
 1. Update macOS to the latest version.
-2. Pull the SSH key from the iCloud-Drive `migration-bundle/` into `~/.ssh/` and register it with the Keychain:
+2. Get an SSH key set up — do this BEFORE step 3 (cloning) because the clone uses SSH. Two options:
+
+   **A. Reuse the existing key.** Pull `id_ed25519` and `id_ed25519.pub` from the iCloud-Drive `migration-bundle/` into `~/.ssh/`:
     ```zsh
+    mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    cp ~/Library/Mobile\ Documents/com~apple~CloudDocs/migration-bundle/id_ed25519* ~/.ssh/
     chmod 600 ~/.ssh/id_ed25519
     ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+    ssh -T git@github.com   # accept the host fingerprint
     ```
-   Or generate a fresh one and add the public key to GitHub:
+   `ssh-add --apple-use-keychain` stores the passphrase in the macOS Keychain so SSH later calls (clone, fresh.sh's `brew install` from git sources, project clones) run silently.
+
+   **B. Generate a fresh key.** Skip the iCloud-bundle copy entirely. Run:
     ```zsh
     curl https://raw.githubusercontent.com/JohannKaspar/dotfiles/HEAD/ssh.sh | sh -s "<your-email>"
     ```
+   Then paste the new public key at <https://github.com/settings/keys>. After it's added, `ssh -T git@github.com` should succeed. Delete the old key from GitHub once the new Mac is verified working.
 3. Clone this repo:
     ```zsh
     git clone --recursive git@github.com:JohannKaspar/dotfiles.git ~/.dotfiles
