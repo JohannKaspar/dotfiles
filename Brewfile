@@ -1,7 +1,5 @@
-tap "homebrew/bundle"
 tap "mhaeuser/mhaeuser"
 tap "ngrok/ngrok"
-tap "steipete/tap"
 # Run your GitHub Actions locally
 brew "act"
 # Static checker for GitHub Actions workflow files
