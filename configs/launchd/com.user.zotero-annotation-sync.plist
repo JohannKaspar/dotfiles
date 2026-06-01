@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.user.zotero-annotation-sync</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/johannkaspar/Documents/Obsidian/Research/.scripts/sync_annotations_run.sh</string>
+  </array>
+
+  <!-- Fire whenever Zotero writes the SQLite (WAL is the high-frequency one)
+       OR whenever a file in topics/ is added/modified (so creating a new
+       topics/<X>.md triggers paper materialization for that collection). -->
+  <key>WatchPaths</key>
+  <array>
+    <string>/Users/johannkaspar/Zotero/zotero.sqlite-wal</string>
+    <string>/Users/johannkaspar/Zotero/zotero.sqlite</string>
+    <string>/Users/johannkaspar/Documents/Obsidian/Research/30-Literature/Topics</string>
+  </array>
+
+  <!-- Debounce: launchd will not re-run more often than every 30 s. -->
+  <key>ThrottleInterval</key>
+  <integer>30</integer>
+
+  <key>StandardOutPath</key>
+  <string>/Users/johannkaspar/Library/Logs/zotero-annotation-sync.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/johannkaspar/Library/Logs/zotero-annotation-sync.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

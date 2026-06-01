@@ -40,6 +40,22 @@ mkdir -p $HOME/.config/karabiner
 [ -e $HOME/.config/karabiner/karabiner.json ] && [ ! -L $HOME/.config/karabiner/karabiner.json ] && mv $HOME/.config/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json.backup
 ln -sf $HOME/.dotfiles/configs/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
 
+# Install Zotero MCP server (used by Claude Desktop, configured in ~/Library/Application Support/Claude/claude_desktop_config.json)
+uv tool install "zotero-mcp-server[all]"
+
+# Install and load launchd agents for the Obsidian Research vault automation:
+#   - zotero-annotation-sync: watches Zotero SQLite + Topics/, syncs paper notes
+#   - research-daily-summary: weekdays 18:30, drafts the daily note via Claude
+mkdir -p $HOME/Library/LaunchAgents
+for plist in $HOME/.dotfiles/configs/launchd/*.plist; do
+  name=$(basename "$plist")
+  target="$HOME/Library/LaunchAgents/$name"
+  [ -e "$target" ] && [ ! -L "$target" ] && mv "$target" "$target.backup"
+  ln -sf "$plist" "$target"
+  launchctl unload "$target" 2>/dev/null
+  launchctl load "$target"
+done
+
 # Clone Github repositories
 ./clone.sh
 

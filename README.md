@@ -87,6 +87,7 @@ Personal dotfiles for setting up and maintaining my Mac. Based on the [driesvint
 - [`clone.sh`](./clone.sh) — clones the repos you want into `~/Projects/`. Edit before running on a new Mac.
 - [`configs/hammerspoon/init.lua`](./configs/hammerspoon/init.lua) — Hammerspoon config, symlinked to `~/.hammerspoon/init.lua`.
 - [`configs/karabiner/karabiner.json`](./configs/karabiner/karabiner.json) — Karabiner-Elements config, symlinked to `~/.config/karabiner/karabiner.json`.
+- [`configs/launchd/`](./configs/launchd) — launchd agents for the Obsidian Research vault automation (Zotero→vault annotation sync, weekday daily-summary draft). Symlinked into `~/Library/LaunchAgents/` by `fresh.sh` and loaded via `launchctl`.
 - [`scripts/`](./scripts) — SSH tunnels for remote Jupyter/TensorBoard and an rsync download helper.
 
 This repo previously used [Mackup](https://github.com/lra/mackup) to sync app preferences via iCloud. Mackup has been effectively unmaintained since 2023 and was retired from this setup. App preferences are now handled via each app's native sync (VS Code Settings Sync, Cursor, Karabiner-Elements GitHub sync, etc.) or just regenerated on a new Mac.
