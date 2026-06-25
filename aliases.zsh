@@ -39,6 +39,7 @@ alias wip="commit wip"
 alias tunnel_jupyter="~/.dotfiles/scripts/tunnel_jupyter.sh"
 alias tunnel_tensorboard="~/.dotfiles/scripts/tunnel_tensorboard.sh"
 alias download="/Users/johannkaspar/.dotfiles/scripts/download_outputs.sh"
+alias compress="~/.dotfiles/scripts/compress.sh"
 
 # kubernetes
 alias k="kubectl"
